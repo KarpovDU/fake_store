@@ -1,10 +1,5 @@
 function App() {
-
-  return (
-    <>
-      Fake Store
-    </>
-  )
+  return <>Fake Store</>
 }
 
 export default App

@@ -17,7 +17,7 @@ jobs:
         run: npm ci
 
       - name: Run ESLint
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+        run: npx eslint .
   format: 
     runs-on: ubuntu-latest
     steps:

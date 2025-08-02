@@ -1,0 +1,10 @@
+/.vite
+/.prettierrc
+/eslint.config.js
+/.github
+/dist
+/node_modules
+*.svg
+*.json
+*.md
+*vite*

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import CasinoIcon from "@mui/icons-material/Casino"
 import KeyIcon from "@mui/icons-material/Key"
 import LoginIcon from "@mui/icons-material/Login"
 import PersonIcon from "@mui/icons-material/Person"
 import {
-  Alert,
   Box,
   Button,
   Card,
@@ -18,17 +15,21 @@ import {
   InputLabel,
   TextField,
 } from "@mui/material"
+import { Visibility, VisibilityOff } from "@mui/icons-material"
+import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { useLoginMutation } from "../../services/authApi"
-import { Visibility, VisibilityOff } from "@mui/icons-material"
+import { useNotification } from "../../utils"
 
 export const Login = () => {
   const [username, setUsername] = useState("emilys")
   const [password, setPassword] = useState("emilyspass")
   const [showPassword, setShowPassword] = useState(false)
-  const [isIncorrect, setIsIncorrect] = useState(false)
 
-  const [login, { isLoading, error }] = useLoginMutation()
+  const [login, { isLoading }] = useLoginMutation()
+
+  const { notify } = useNotification()
   const navigate = useNavigate()
 
   // Перенаправление, если пользователь уже вошёл.
@@ -37,17 +38,6 @@ export const Login = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClickShowPassword = () => setShowPassword(show => !show)
-
-  // Отображение уведомления.
-  useEffect(() => {
-    if (error) setIsIncorrect(true)
-    const timer = setTimeout(() => {
-      setIsIncorrect(false)
-    }, 5000)
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [error])
 
   // Перенаправление на главную.
   const handleLogin = async (e: React.FormEvent) => {
@@ -58,6 +48,7 @@ export const Login = () => {
       localStorage.setItem("refreshToken", response.refreshToken)
       navigate("/")
     } catch (error) {
+      notify("Неверный логин или пароль.", "error")
       console.error("Login failed", error)
     }
   }
@@ -87,7 +78,7 @@ export const Login = () => {
               />
             </Box>
             <Box margin="normal" sx={{ display: "flex", alignItems: "flex-end", gap: 2, mb: 5 }}>
-              <KeyIcon fontSize="medium" sx={{ color: "action.active", mb: 1.5 }} />
+              <KeyIcon fontSize="medium" sx={{ color: "action.active", mb: 0.5 }} />
               <FormControl fullWidth variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">Пароль *</InputLabel>
                 <Input
@@ -123,11 +114,6 @@ export const Login = () => {
           </form>
         </CardContent>
       </Card>
-      {isIncorrect && (
-        <Alert sx={{ position: "fixed", left: 10, bottom: 10 }} severity="error" onClose={() => setIsIncorrect(false)}>
-          Введен неверный логин или пароль.
-        </Alert>
-      )}
     </Box>
   )
 }

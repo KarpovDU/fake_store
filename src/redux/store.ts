@@ -1,13 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { authApi } from "../services/authApi"
+
+import { authApi } from "../services"
 import userReducer from "./user"
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
     user: userReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApi.middleware),
 })
-
-export default store

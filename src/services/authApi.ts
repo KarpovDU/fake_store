@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import type { IAuth, IRefreshTokenResponse, IUserAuthResponse } from "../types/userTypes"
+
+import type { IAuth, IRefreshTokenResponse, IUserAuthResponse } from "../types"
 
 export const authApi = createApi({
   reducerPath: "authApi",

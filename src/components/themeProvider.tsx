@@ -1,5 +1,5 @@
-import { createTheme, CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material"
 import type { ReactNode } from "react"
+import { createTheme, CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material"
 
 const theme = createTheme()
 

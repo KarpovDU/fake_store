@@ -1,18 +1,21 @@
 import { useEffect, type ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
-import { useGetUserQuery, useRefreshTokenMutation } from "../services/authApi"
+
+import { useGetUserQuery, useRefreshTokenMutation } from "../services"
 
 export function PrivateRoute({ children }: { children: ReactNode }) {
   const { data: userData, error, refetch } = useGetUserQuery()
   const [refreshToken, { error: refreshError }] = useRefreshTokenMutation()
   const navigate = useNavigate()
 
+  // Выход пользователя.
   const logout = () => {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("refreshToken")
     navigate("/login")
   }
 
+  // Проверка токена.
   useEffect(() => {
     if (error && refreshError) {
       logout()

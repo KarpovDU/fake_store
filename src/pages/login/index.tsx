@@ -19,7 +19,7 @@ import {
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { useLoginMutation } from "../../services/authApi"
+import { useLoginMutation } from "../../services"
 import { useNotification } from "../../utils"
 
 export const Login = () => {

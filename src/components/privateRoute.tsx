@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { useGetUserQuery, useRefreshTokenMutation } from "../services/authApi"
 
 export function PrivateRoute({ children }: { children: ReactNode }) {
-  const { data: userData, isLoading, error, refetch } = useGetUserQuery()
-  const [refreshToken, { isLoading: refreshLoading, error: refreshError }] = useRefreshTokenMutation()
+  const { data: userData, error, refetch } = useGetUserQuery()
+  const [refreshToken, { error: refreshError }] = useRefreshTokenMutation()
   const navigate = useNavigate()
 
   const logout = () => {
@@ -36,6 +36,5 @@ export function PrivateRoute({ children }: { children: ReactNode }) {
     }
   }, [error, refreshError, userData]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (isLoading || refreshLoading || !userData) return <>Loading...</>
-  if (userData) return <>{children}</>
+  return userData ? <>{children}</> : <>Loading...</>
 }

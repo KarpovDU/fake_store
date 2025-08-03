@@ -1,3 +1,4 @@
+import { Visibility, VisibilityOff } from "@mui/icons-material"
 import CasinoIcon from "@mui/icons-material/Casino"
 import KeyIcon from "@mui/icons-material/Key"
 import LoginIcon from "@mui/icons-material/Login"
@@ -15,8 +16,7 @@ import {
   InputLabel,
   TextField,
 } from "@mui/material"
-import { Visibility, VisibilityOff } from "@mui/icons-material"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { useLoginMutation } from "../../services/authApi"

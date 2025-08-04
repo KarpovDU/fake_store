@@ -21,7 +21,12 @@ export interface IAuth {
   password: string
 }
 
-export interface IRefreshTokenResponse {
+export interface ITokenResponse {
   accessToken: string
   refreshToken: string
+}
+
+export interface IAllUsersResponse {
+  users: (IUser & IAuth)[]
+  total: number
 }

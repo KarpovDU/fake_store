@@ -19,14 +19,18 @@ import {
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { useLoginMutation } from "../../services"
+import { useGetUserByIdQuery, useLoginMutation } from "../../services"
 import { useNotification } from "../../utils"
 
 export const Login = () => {
-  const [username, setUsername] = useState("emilys")
-  const [password, setPassword] = useState("emilyspass")
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
+  const [randomId, setRandomId] = useState<number>(1)
 
+  const usersCount = 208
+
+  const { data: userData, refetch, isLoading: randomizeIsLoading, isFetching } = useGetUserByIdQuery(randomId)
   const [login, { isLoading }] = useLoginMutation()
 
   const { notify } = useNotification()
@@ -37,10 +41,18 @@ export const Login = () => {
     if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) navigate("/")
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Установка данных случайного пользователя.
+  useEffect(() => {
+    if (userData) {
+      setPassword(userData.password)
+      setUsername(userData.username)
+    }
+  }, [userData])
+
   const handleClickShowPassword = () => setShowPassword(show => !show)
 
   // Перенаправление на главную.
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
       const response = await login({ username, password }).unwrap()
@@ -53,6 +65,14 @@ export const Login = () => {
     }
   }
 
+  // Получение случайного пользователя.
+  const randomizeUsers = () => {
+    const date = Date.now()
+    const seed = date % 1000000
+    setRandomId(1 + (seed % (usersCount - 1 + 1)))
+    refetch()
+  }
+
   return (
     <Box
       sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -63,7 +83,7 @@ export const Login = () => {
             <img src="/FS.png" alt="logo" width={50} height={50} />
             <h2 style={{ fontSize: 42, fontWeight: "bold", padding: 0, margin: 0 }}>FAKE STORE</h2>
           </Box>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleSubmit}>
             <Box sx={{ display: "flex", alignItems: "flex-end", gap: 2 }}>
               <PersonIcon fontSize="medium" sx={{ color: "action.active", mb: 1.5 }} />
               <TextField
@@ -98,7 +118,14 @@ export const Login = () => {
               </FormControl>
             </Box>
             <CardActions sx={{ justifyContent: "space-between" }}>
-              <Button variant="text" startIcon={<CasinoIcon />} disableElevation>
+              <Button
+                variant="text"
+                startIcon={<CasinoIcon />}
+                disableElevation
+                onClick={randomizeUsers}
+                loading={randomizeIsLoading || isFetching}
+                loadingPosition="start"
+              >
                 Случайный пользователь
               </Button>
               <Button

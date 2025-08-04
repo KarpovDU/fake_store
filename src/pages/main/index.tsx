@@ -1,20 +1,14 @@
-import { useNavigate } from "react-router-dom"
+import { Box } from "@mui/material"
+
+import { SearchBox, TopBar } from "../../components"
 
 export function Main() {
-  const navigate = useNavigate()
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken")
-    localStorage.removeItem("refreshToken")
-    navigate("/login")
-  }
-
   return (
-    <>
-      Fake Store
-      <button type="button" onClick={handleLogout}>
-        Выйти
-      </button>
-    </>
+    <Box>
+      <TopBar />
+      <Box sx={{ margin: "0 auto", maxWidth: 1200, width: 1200, py: 4 }}>
+        <SearchBox />
+      </Box>
+    </Box>
   )
 }

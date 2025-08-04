@@ -1,0 +1,44 @@
+export type ProductDimensions = {
+  width: number
+  height: number
+  depth: number
+}
+
+export type ProductReview = {
+  rating: number
+  comment: string
+  date: string
+  reviewerName: string
+  reviewerEmail: string
+}
+
+export interface IProduct {
+  id: number
+  title: string
+  description: string
+  category: string
+  price: number
+  rating: number
+  stock: number
+  tags: string[]
+  brand: string
+  sku: string
+  weight: number
+  dimensions: ProductDimensions
+  reviews: ProductReview[]
+  images: string[]
+}
+
+export type ProductsResponse = {
+  products: IProduct[]
+  total: number
+  skip: number
+}
+
+export type ProductsQuery = {
+  page: number
+}
+
+export type ProductsSearchQuery = ProductsQuery & { search: string }
+
+export type ProductsByCategoryQuery = ProductsQuery & { category: string }

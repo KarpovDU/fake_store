@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-import type { IAuth, IRefreshTokenResponse, IUserAuthResponse } from "../types"
+import type { IAuth, ITokenResponse, IUserAuthResponse } from "../types"
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -25,7 +25,7 @@ export const authApi = createApi({
     getUser: builder.query<IUserAuthResponse, void>({
       query: () => "/me",
     }),
-    refreshToken: builder.mutation<IRefreshTokenResponse, void>({
+    refreshToken: builder.mutation<ITokenResponse, void>({
       query: () => ({
         url: "refresh",
         method: "POST",

@@ -17,6 +17,7 @@ export function TopBar() {
       square
       elevation={3}
       sx={{
+        zIndex: 1,
         position: "sticky",
         top: 0,
         left: 0,

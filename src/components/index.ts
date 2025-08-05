@@ -1,3 +1,7 @@
 export * from "./privateRoute"
 export * from "./themeProvider"
 export * from "./notificationProvider"
+export * from "./topBar"
+export * from "./searchBox"
+export * from "./productCard"
+export * from "./footer"

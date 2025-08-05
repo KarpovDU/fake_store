@@ -15,6 +15,7 @@ import {
   InputAdornment,
   InputLabel,
   TextField,
+  useColorScheme,
 } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -37,6 +38,7 @@ export const Login = () => {
 
   const { notify } = useNotification()
   const navigate = useNavigate()
+  const { colorScheme } = useColorScheme()
 
   // Перенаправление, если пользователь уже вошёл.
   useEffect(() => {
@@ -87,7 +89,7 @@ export const Login = () => {
       <Card sx={{ maxWidth: 500, width: 500 }}>
         <CardContent sx={{ flexGrow: "1" }}>
           <Box sx={{ display: "flex", gap: 3, justifyContent: "center", alignItems: "center", mb: 2 }}>
-            <img src="/FS.png" alt="logo" width={50} height={50} />
+            <img src={`/FS${colorScheme === "dark" ? "_dark" : ""}.png`} alt="logo" width={50} height={50} />
             <h2 style={{ fontSize: 42, fontWeight: "bold", padding: 0, margin: 0 }}>FAKE STORE</h2>
           </Box>
           <form onSubmit={handleSubmit}>

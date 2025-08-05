@@ -21,12 +21,14 @@ import { useNavigate } from "react-router-dom"
 
 import { useGetUserByIdQuery, useLoginMutation } from "../../services"
 import { useNotification } from "../../utils"
+import { LoadingSpinner } from "../../components"
 
 export const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [randomId, setRandomId] = useState<number>(1)
+  const [componentDidMount, setComponentDidMount] = useState(false)
 
   const usersCount = 208
 
@@ -38,7 +40,10 @@ export const Login = () => {
 
   // Перенаправление, если пользователь уже вошёл.
   useEffect(() => {
-    if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) navigate("/")
+    if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) navigate("/", { replace: true })
+    else {
+      setComponentDidMount(true)
+    }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Установка данных случайного пользователя.
@@ -72,6 +77,8 @@ export const Login = () => {
     setRandomId(1 + (seed % (usersCount - 1 + 1)))
     refetch()
   }
+
+  if (!componentDidMount) return <LoadingSpinner />
 
   return (
     <Box

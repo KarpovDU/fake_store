@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react"
 import { Box, Pagination } from "@mui/material"
 
-import { Footer, ProductCard, SearchBox, TopBar } from "../../components"
+import { Footer, LoadingSpinner, ProductCard, SearchBox, TopBar } from "../../components"
 import { useGetAllProductsQuery } from "../../services"
 
 export function Main() {
   const counPerPage = 20
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
-  const { data } = useGetAllProductsQuery({ page: page })
+  const { data, isLoading } = useGetAllProductsQuery({ page: page })
 
   // Вычисление количества страниц.
   useMemo(() => {
@@ -21,6 +21,8 @@ export function Main() {
     setPage(currentPage)
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
   }
+
+  if (isLoading) return <LoadingSpinner />
 
   return (
     <Box>

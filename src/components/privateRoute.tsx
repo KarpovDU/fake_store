@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { useGetUserQuery, useRefreshTokenMutation } from "../services"
+import { LoadingSpinner } from "./loadingSpinner"
 
 export function PrivateRoute({ children }: { children: ReactNode }) {
   const { data: userData, error, refetch } = useGetUserQuery()
@@ -39,5 +40,5 @@ export function PrivateRoute({ children }: { children: ReactNode }) {
     }
   }, [error, refreshError, userData]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  return userData ? <>{children}</> : <>Loading...</>
+  return userData ? <>{children}</> : <LoadingSpinner />
 }

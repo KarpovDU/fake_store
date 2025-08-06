@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-import { type IAllUsersResponse, type Auth, type User } from "../types"
+import { type AllUsersResponse, type Auth, type User } from "../types"
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -11,7 +11,7 @@ export const userApi = createApi({
     getUserById: builder.query<User & Auth, number>({
       query: id => `users/${id}`,
     }),
-    getAllUsers: builder.query<IAllUsersResponse, void>({
+    getAllUsers: builder.query<AllUsersResponse, void>({
       query: () => "users",
     }),
   }),

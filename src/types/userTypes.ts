@@ -26,7 +26,7 @@ export interface TokenResponse {
   refreshToken: string
 }
 
-export interface IAllUsersResponse {
+export interface AllUsersResponse {
   users: (User & Auth)[]
   total: number
 }

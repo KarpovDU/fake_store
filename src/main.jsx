@@ -4,7 +4,7 @@ import { Provider } from "react-redux"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import { PrivateRoute, ThemeProvider, NotificationProvider } from "./components"
-import { Login, Main } from "./pages"
+import { Login, Main, ProductPage } from "./pages"
 import { store } from "./redux"
 
 const router = createBrowserRouter([
@@ -17,6 +17,14 @@ const router = createBrowserRouter([
     ),
   },
   { path: "/login", element: <Login /> },
+  {
+    path: "/products/:id",
+    element: (
+      <PrivateRoute>
+        <ProductPage />
+      </PrivateRoute>
+    ),
+  },
 ])
 
 createRoot(document.getElementById("root")).render(

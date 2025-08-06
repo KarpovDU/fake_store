@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-import type { IAuth, ITokenResponse, IUserAuthResponse } from "../types"
+import { UserAuthResponse, Auth, TokenResponse } from "../types/userTypes"
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -15,17 +15,17 @@ export const authApi = createApi({
     },
   }),
   endpoints: builder => ({
-    login: builder.mutation<IUserAuthResponse, IAuth>({
+    login: builder.mutation<UserAuthResponse, Auth>({
       query: credentials => ({
         url: "login",
         method: "POST",
         body: credentials,
       }),
     }),
-    getUser: builder.query<IUserAuthResponse, void>({
+    getUser: builder.query<UserAuthResponse, void>({
       query: () => "/me",
     }),
-    refreshToken: builder.mutation<ITokenResponse, void>({
+    refreshToken: builder.mutation<TokenResponse, void>({
       query: () => ({
         url: "refresh",
         method: "POST",

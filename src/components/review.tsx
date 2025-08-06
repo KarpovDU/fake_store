@@ -2,9 +2,9 @@ import { Box, Paper, Typography } from "@mui/material"
 import StarIcon from "@mui/icons-material/Star"
 import { format } from "date-fns"
 
-import type { IProduct } from "../types"
+import type { Product } from "../types"
 
-export const Review = ({ review }: { review: IProduct["reviews"][0] }) => {
+export const Review = ({ review }: { review: Product["reviews"][0] }) => {
   return (
     <Paper sx={{ padding: 1, display: "flex", flexDirection: "column", gap: 1, flex: 1 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>

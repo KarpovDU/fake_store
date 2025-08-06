@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Box, IconButton, Paper, useColorScheme } from "@mui/material"
 import LogoutIcon from "@mui/icons-material/Logout"
 import DarkModeIcon from "@mui/icons-material/DarkMode"
@@ -36,14 +36,19 @@ export function TopBar() {
         justifyContent: "space-between",
       }}
     >
-      <a href="/" style={{ all: "unset", cursor: "pointer" }}>
+      <Link
+        to={{
+          pathname: "/",
+        }}
+        style={{ all: "unset", cursor: "pointer" }}
+      >
         <Box
           sx={{ display: "flex", gap: 2, justifyContent: "flex-start", alignItems: "center", height: "100%", mx: 2 }}
         >
           <img src={`/FS${colorScheme === "dark" ? "_dark" : ""}.png`} alt="logo" width={30} height={30} />
           <h2 style={{ fontSize: 28, fontWeight: "bold", padding: 0, margin: 0 }}>FAKE STORE</h2>
         </Box>
-      </a>
+      </Link>
       <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end", alignItems: "center", height: "100%", mx: 2 }}>
         <IconButton onClick={changeTheme}>{colorScheme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}</IconButton>
         <IconButton onClick={handleLogout}>

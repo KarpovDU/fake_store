@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import StarIcon from "@mui/icons-material/Star"
 import StarBorderIcon from "@mui/icons-material/StarBorder"
 import StarHalfIcon from "@mui/icons-material/StarHalf"
-import { Box, Button, Link, Paper, Typography } from "@mui/material"
+import { Box, Button, Link as MuiLink, Paper, Typography } from "@mui/material"
 
 import type { ReactNode } from "react"
 import type { IProduct } from "../types"
@@ -39,14 +40,17 @@ export function ProductCard({ product }: ProductProps) {
       <img src={product.images[0]} width={200} height={200} />
       <Box sx={{ display: "flex", flexDirection: "column", flex: 1, gap: 5 }}>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Link
-            href={`/products/${product.id}`}
+          <MuiLink
+            component={Link}
+            to={{
+              pathname: `/products/${product.id}`,
+            }}
             underline="none"
             sx={{ margin: 0, padding: 0, fontSize: 24, fontWeight: "500", textTransform: "uppercase" }}
             color="primary"
           >
             {product.title}
-          </Link>
+          </MuiLink>
           <Box sx={{ display: "flex", gap: 2 }}>
             <Box>{generateRatingStars(product.rating).map(star => star)}</Box>
             {product.rating}

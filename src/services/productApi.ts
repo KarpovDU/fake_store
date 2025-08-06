@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-import type { ProductsByCategoryQuery, ProductsQuery, ProductsResponse, ProductsSearchQuery } from "../types"
+import type { IProduct, ProductsByCategoryQuery, ProductsQuery, ProductsResponse, ProductsSearchQuery } from "../types"
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -20,6 +20,9 @@ export const productApi = createApi({
     getProductsByCategory: builder.query<ProductsResponse, ProductsByCategoryQuery>({
       query: ({ page, category }) => `/category/${category}?skip=${(page - 1) * 20}`,
     }),
+    getSingleProductById: builder.query<IProduct, number>({
+      query: number => `/${number}`,
+    }),
   }),
 })
 
@@ -28,4 +31,5 @@ export const {
   useGetProductsByCategoryQuery,
   useGetProductsCategoriesListQuery,
   useSearchProductsQuery,
+  useGetSingleProductByIdQuery,
 } = productApi

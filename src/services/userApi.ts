@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-import { type IAllUsersResponse, type IAuth, type IUser } from "../types"
+import { type AllUsersResponse, type Auth, type User } from "../types"
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -8,10 +8,10 @@ export const userApi = createApi({
     baseUrl: "https://dummyjson.com/",
   }),
   endpoints: builder => ({
-    getUserById: builder.query<IUser & IAuth, number>({
+    getUserById: builder.query<User & Auth, number>({
       query: id => `users/${id}`,
     }),
-    getAllUsers: builder.query<IAllUsersResponse, void>({
+    getAllUsers: builder.query<AllUsersResponse, void>({
       query: () => "users",
     }),
   }),

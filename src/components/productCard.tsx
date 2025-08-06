@@ -1,3 +1,4 @@
+import type { ReactNode } from "react"
 import { Link } from "react-router-dom"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
@@ -6,11 +7,10 @@ import StarBorderIcon from "@mui/icons-material/StarBorder"
 import StarHalfIcon from "@mui/icons-material/StarHalf"
 import { Box, Button, Link as MuiLink, Paper, Typography } from "@mui/material"
 
-import type { ReactNode } from "react"
-import type { IProduct } from "../types"
+import type { Product } from "../types"
 
 type ProductProps = {
-  product: IProduct
+  product: Product
 }
 
 export function ProductCard({ product }: ProductProps) {

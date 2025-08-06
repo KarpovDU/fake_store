@@ -12,7 +12,7 @@ export type ProductReview = {
   reviewerEmail: string
 }
 
-export interface IProduct {
+export interface Product {
   id: number
   title: string
   description: string
@@ -30,7 +30,7 @@ export interface IProduct {
 }
 
 export type ProductsResponse = {
-  products: IProduct[]
+  products: Product[]
   total: number
   skip: number
 }

@@ -1,6 +1,6 @@
-import StarIcon from "@mui/icons-material/Star"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+import StarIcon from "@mui/icons-material/Star"
 import { Box, Button, Paper, Typography } from "@mui/material"
 import { useEffect, useMemo, useState } from "react"
 import { useParams } from "react-router-dom"
@@ -123,8 +123,8 @@ export function ProductPage() {
               </Typography>
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", gap: 1 }}>
-              {product.reviews.map(review => {
-                return <Review key={review.reviewerName} review={review} />
+              {product.reviews.map((review, index) => {
+                return <Review key={index} review={review} />
               })}
             </Box>
           </Box>

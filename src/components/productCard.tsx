@@ -52,7 +52,11 @@ export function ProductCard({ product }: ProductProps) {
             {product.title}
           </MuiLink>
           <Box sx={{ display: "flex", gap: 2 }}>
-            <Box>{generateRatingStars(product.rating).map(star => star)}</Box>
+            <Box>
+              {generateRatingStars(product.rating).map((star, index) => (
+                <span key={index}>{star}</span>
+              ))}
+            </Box>
             {product.rating}
           </Box>
         </Box>

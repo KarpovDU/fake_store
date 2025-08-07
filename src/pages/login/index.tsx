@@ -61,15 +61,17 @@ export const Login = () => {
   // Перенаправление на главную.
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    try {
-      const response = await login({ username, password }).unwrap()
-      localStorage.setItem("accessToken", response.accessToken)
-      localStorage.setItem("refreshToken", response.refreshToken)
-      navigate("/")
-    } catch (error) {
-      notify("Неверный логин или пароль.", "error")
-      console.error("Login failed", error)
-    }
+    login({ username, password })
+      .unwrap()
+      .then(response => {
+        localStorage.setItem("accessToken", response.accessToken)
+        localStorage.setItem("refreshToken", response.refreshToken)
+        navigate("/")
+      })
+      .catch(error => {
+        notify("Неверный логин или пароль.", "error")
+        console.error("Login failed", error)
+      })
   }
 
   // Получение случайного пользователя.

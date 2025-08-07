@@ -18,3 +18,6 @@ export const store = configureStore({
       .concat(productApi.middleware)
       .concat(cartApi.middleware),
 })
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

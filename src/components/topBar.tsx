@@ -4,6 +4,7 @@ import LogoutIcon from "@mui/icons-material/Logout"
 import DarkModeIcon from "@mui/icons-material/DarkMode"
 import LightModeIcon from "@mui/icons-material/LightMode"
 import { useDispatch } from "react-redux"
+
 import { logout } from "../redux"
 
 export function TopBar() {

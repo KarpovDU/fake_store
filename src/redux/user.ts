@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import type { IUser } from "../types"
+import type { User } from "../types"
 
-const initialState: IUser = {
+const initialState: User = {
   email: null,
   firstName: null,
   gender: null,
@@ -16,7 +16,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<IUser>) => {
+    login: (state, action: PayloadAction<User>) => {
       state.email = action.payload.email
       state.firstName = action.payload.firstName
       state.gender = action.payload.gender
@@ -33,6 +33,8 @@ const userSlice = createSlice({
       state.image = null
       state.lastName = null
       state.username = null
+      localStorage.removeItem("accessToken")
+      localStorage.removeItem("refreshToken")
     },
   },
 })

@@ -3,8 +3,12 @@ import { Box, IconButton, Paper, useColorScheme } from "@mui/material"
 import LogoutIcon from "@mui/icons-material/Logout"
 import DarkModeIcon from "@mui/icons-material/DarkMode"
 import LightModeIcon from "@mui/icons-material/LightMode"
+import { useDispatch } from "react-redux"
+
+import { logout } from "../redux"
 
 export function TopBar() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const { colorScheme, setColorScheme } = useColorScheme()
@@ -16,8 +20,7 @@ export function TopBar() {
 
   // Функция выхода из профиля.
   const handleLogout = () => {
-    localStorage.removeItem("accessToken")
-    localStorage.removeItem("refreshToken")
+    dispatch(logout())
     navigate("/login", { replace: true })
   }
 

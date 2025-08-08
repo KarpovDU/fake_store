@@ -1,15 +1,16 @@
 import { Link, useNavigate } from "react-router-dom"
-import { Box, IconButton, Paper, useColorScheme } from "@mui/material"
+import { Box, IconButton, Paper, Typography, useColorScheme } from "@mui/material"
 import LogoutIcon from "@mui/icons-material/Logout"
 import DarkModeIcon from "@mui/icons-material/DarkMode"
 import LightModeIcon from "@mui/icons-material/LightMode"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
-import { logout } from "../redux"
+import { logout, RootState } from "../redux"
 
 export function TopBar() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const user = useSelector((state: RootState) => state.user)
 
   const { colorScheme, setColorScheme } = useColorScheme()
 
@@ -53,6 +54,17 @@ export function TopBar() {
         </Box>
       </Link>
       <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end", alignItems: "center", height: "100%", mx: 2 }}>
+        <Box sx={{ display: "flex", pr: 10, gap: 2, alignItems: "center" }}>
+          {user.image && <img src={user.image} width={40} height={40} />}
+          <Box>
+            <Typography sx={{ color: theme => theme.palette.primary.main }}>
+              {user.firstName} {user.lastName}
+            </Typography>
+            <Typography fontSize={10} sx={{ color: theme => theme.palette.grey[600] }}>
+              {user.email}
+            </Typography>
+          </Box>
+        </Box>
         <IconButton onClick={changeTheme}>{colorScheme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}</IconButton>
         <IconButton onClick={handleLogout}>
           <LogoutIcon />

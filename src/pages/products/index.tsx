@@ -1,12 +1,18 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 import { Box, Pagination } from "@mui/material"
 
 import { Footer, LoadingSpinner, ProductCard, SearchBox, TopBar } from "../../components"
 import { useGetAllProductsQuery } from "../../services"
 
 export function Main() {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const queryParams = new URLSearchParams(location.search)
+  const pageParam = queryParams.get("page")
+
   const counPerPage = 20
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState<number>(Number(pageParam) || 1)
   const [totalPages, setTotalPages] = useState(0)
   const { data, isLoading } = useGetAllProductsQuery({ page: page })
 
@@ -18,9 +24,15 @@ export function Main() {
   // Переключение страниц товаров.
   const handleChangePage = (e: React.ChangeEvent<unknown>, currentPage: number) => {
     e.preventDefault()
-    setPage(currentPage)
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+    navigate(`?page=${currentPage}`, { replace: true })
   }
+
+  useEffect(() => {
+    if (pageParam && Number(pageParam) !== page) {
+      setPage(Number(pageParam))
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+    }
+  }, [location.search]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) return <LoadingSpinner />
 

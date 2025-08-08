@@ -42,7 +42,8 @@ export const Login = () => {
 
   // Перенаправление, если пользователь уже вошёл.
   useEffect(() => {
-    if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) navigate("/", { replace: true })
+    if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken"))
+      navigate("/products", { replace: true })
     else {
       setComponentDidMount(true)
     }

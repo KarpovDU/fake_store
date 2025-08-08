@@ -42,7 +42,7 @@ export function TopBar() {
     >
       <Link
         to={{
-          pathname: "/",
+          pathname: "/products",
         }}
         style={{ all: "unset", cursor: "pointer" }}
       >

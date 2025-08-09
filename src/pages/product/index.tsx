@@ -56,7 +56,7 @@ export function ProductPage() {
           <Paper sx={{ padding: 0, width: 500, height: 500 }}>
             {selectedImage && <img src={selectedImage} width={500} height={500} />}
           </Paper>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px" }}>
             {product.images.map((image, index) => {
               const border =
                 selectedImage === image
@@ -64,7 +64,7 @@ export function ProductPage() {
                   : {}
               return (
                 <div key={index} onClick={() => setSelectedImage(image)}>
-                  <Paper sx={{ cursor: "pointer", width: 150, height: 150, ...border }}>
+                  <Paper sx={{ cursor: "pointer", width: 160, height: 160, ...border }}>
                     <img
                       src={image}
                       width={selectedImage === image ? 146 : 150}

@@ -5,8 +5,8 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import { Badge, Box, Divider, Fab, IconButton, Paper, Typography } from "@mui/material"
 import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react"
-import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 
 import { RootState } from "../redux"
 import { useGetUserCartQuery } from "../services"
@@ -87,7 +87,7 @@ export function Cart() {
 /**
  * Один товар из корзины.
  */
-export const CartItem = ({ product, setIsOpen }: { product: CartProduct; setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
+const CartItem = ({ product, setIsOpen }: { product: CartProduct; setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
   return (
     <Box sx={{ display: "flex", gap: 2, px: 2 }}>
       <img src={product.thumbnail} width={100} height={100} style={{ background: "transparent" }} />

@@ -87,7 +87,7 @@ export function Cart() {
 /**
  * Один товар из корзины.
  */
-const CartItem = ({ product, setIsOpen }: { product: CartProduct; setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
+export const CartItem = ({ product, setIsOpen }: { product: CartProduct; setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
   return (
     <Box sx={{ display: "flex", gap: 2, px: 2 }}>
       <img src={product.thumbnail} width={100} height={100} style={{ background: "transparent" }} />

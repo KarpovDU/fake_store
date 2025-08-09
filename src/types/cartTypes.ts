@@ -1,8 +1,19 @@
 import { Product } from "./productTypes"
 
+export type CartProduct = {
+  discountPercentage: number
+  discountedTotal: number
+  id: number
+  price: number
+  quantity: number
+  thumbnail: string
+  title: string
+  total: number
+}
+
 export interface Cart {
   id: number
-  products: Product[]
+  products: CartProduct[]
   total: number
   discountedTotal: number
   userId: number

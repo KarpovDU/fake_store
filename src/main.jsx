@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-import { PrivateRoute, ThemeProvider, NotificationProvider, RedirectToProducts } from "./components"
+import { Cart, NotificationProvider, PrivateRoute, RedirectToProducts, ThemeProvider } from "./components"
 import { Login, Main, ProductPage } from "./pages"
 import { store } from "./redux"
 
@@ -13,6 +13,7 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <Main />
+        <Cart />
       </PrivateRoute>
     ),
   },
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <ProductPage />
+        <Cart />
       </PrivateRoute>
     ),
   },

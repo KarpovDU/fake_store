@@ -1,8 +1,6 @@
 import { Product } from "./productTypes"
 
 export type CartProduct = {
-  discountPercentage: number
-  discountedTotal: number
   id: number
   price: number
   quantity: number
@@ -12,11 +10,8 @@ export type CartProduct = {
 }
 
 export interface Cart {
-  id: number
   products: CartProduct[]
   total: number
-  discountedTotal: number
-  userId: number
   totalProducts: number
   totalQuantity: number
 }

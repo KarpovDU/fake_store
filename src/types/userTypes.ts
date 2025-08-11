@@ -1,3 +1,5 @@
+import type { Nullable } from "./general"
+
 export interface UserAuthResponse {
   accessToken: string
   email: string
@@ -8,10 +10,6 @@ export interface UserAuthResponse {
   lastName: string
   refreshToken: string
   username: string
-}
-
-type Nullable<T> = {
-  [K in keyof T]: T[K] | null
 }
 
 export type User = Omit<Nullable<UserAuthResponse>, "accessToken" | "refreshToken">

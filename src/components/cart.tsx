@@ -1,22 +1,23 @@
-import AddIcon from "@mui/icons-material/Add"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 import CloseIcon from "@mui/icons-material/Close"
-import RemoveIcon from "@mui/icons-material/Remove"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import { Badge, Box, Divider, Fab, IconButton, Paper, Typography } from "@mui/material"
 import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 
-import { RootState } from "../redux"
+import { addProduct, decreaseProductByOne, removeProduct, RootState, setCart } from "../redux"
 import { useGetUserCartQuery } from "../services"
 import type { CartProduct } from "../types"
+import { ChangeCount } from "./cartButton"
 
 export function Cart() {
   const [isOpen, setIsOpen] = useState(false)
   const cartRef = useRef<HTMLDivElement>(null)
   const user = useSelector((state: RootState) => state.user)
+  const cart = useSelector((state: RootState) => state.cart)
   const { data } = useGetUserCartQuery(user.id!, { skip: !user.id })
+  const dispatch = useDispatch()
 
   // Закрыть корзину при клике вне её.
   useEffect(() => {
@@ -32,17 +33,22 @@ export function Cart() {
   }, [])
 
   // Открыть корзину.
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation()
     setIsOpen(prev => !prev)
   }
 
+  // Запись корзины в хранилище, если имеется
+  useEffect(() => {
+    if (data?.carts[0]) dispatch(setCart(data.carts[0]))
+  }, [data]) // eslint-disable-line react-hooks/exhaustive-deps
+
   // Отображать корзину, если существует.
-  if (data?.carts[0])
+  if (cart.totalProducts !== 0 && cart.totalQuantity !== 0)
     return (
       <>
         <Fab onClick={handleClick} color="primary" sx={{ position: "fixed", right: "20px", bottom: "20px" }}>
-          <Badge badgeContent={data?.carts[0].products.length}>
+          <Badge badgeContent={cart.totalQuantity}>
             <ShoppingCartIcon />
           </Badge>
         </Fab>
@@ -61,10 +67,10 @@ export function Cart() {
               pt: 2,
             }}
           >
-            {data?.carts[0].products.map((product, index) => (
-              <span key={product.id}>
+            {cart.products.map((product, index) => (
+              <span key={index}>
                 <CartItem product={product} setIsOpen={setIsOpen} />
-                {index !== data.carts[0].products.length - 1 && <Divider variant="fullWidth" />}
+                {index !== cart.totalProducts - 1 && <Divider variant="fullWidth" />}
               </span>
             ))}
             <Box sx={{ position: "sticky", bottom: 0, backgroundColor: theme => theme.palette.primary.main }}>
@@ -72,7 +78,7 @@ export function Cart() {
                 <Typography sx={{ mr: 2, color: theme => theme.palette.background.default }}>Итого: </Typography>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Typography sx={{ color: theme => theme.palette.background.default }} color="primary">
-                    {data.carts[0].total}
+                    {cart.total}
                   </Typography>
                   <AttachMoneyIcon fontSize="small" sx={{ color: theme => theme.palette.background.default }} />
                 </Box>
@@ -88,6 +94,30 @@ export function Cart() {
  * Один товар из корзины.
  */
 const CartItem = ({ product, setIsOpen }: { product: CartProduct; setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
+  const dispatch = useDispatch()
+
+  const handleRemoveProduct = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    dispatch(removeProduct({ id: product.id }))
+  }
+
+  const decreaseCount = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    dispatch(decreaseProductByOne({ id: product.id }))
+  }
+
+  const increaseCount = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    dispatch(
+      addProduct({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        thumbnail: product.thumbnail,
+      }),
+    )
+  }
+
   return (
     <Box sx={{ display: "flex", gap: 2, px: 2 }}>
       <img src={product.thumbnail} width={100} height={100} style={{ background: "transparent" }} />
@@ -100,37 +130,18 @@ const CartItem = ({ product, setIsOpen }: { product: CartProduct; setIsOpen: Dis
           >
             <Typography color="primary">{product.title}</Typography>
           </Link>
-          <IconButton>
+          <IconButton onClick={handleRemoveProduct}>
             <CloseIcon fontSize="small" />
           </IconButton>
         </Box>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 3 }}>
           <Box>
             <Typography>Цена: {product.price}$</Typography>
             <Typography>Итого: {product.total}$</Typography>
           </Box>
-          <ChangeCount count={product.quantity} />
+          <ChangeCount decreaseCount={decreaseCount} increaseCount={increaseCount} count={product.quantity} />
         </Box>
       </Box>
     </Box>
-  )
-}
-
-/**
- * Кнопка изменения количества
- */
-export const ChangeCount = ({ count }: { count: number }) => {
-  return (
-    <Paper sx={{ display: "flex", width: "fit-content", alignItems: "center", height: "fit-content" }}>
-      <IconButton>
-        <RemoveIcon fontSize="small" />
-      </IconButton>
-      <Divider orientation="vertical" />
-      <Typography sx={{ mx: 1, width: 25, textAlign: "center" }}>{count}</Typography>
-      <Divider orientation="vertical" />
-      <IconButton>
-        <AddIcon fontSize="small" />
-      </IconButton>
-    </Paper>
   )
 }

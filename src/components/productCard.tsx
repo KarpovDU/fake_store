@@ -1,13 +1,13 @@
-import type { ReactNode } from "react"
-import { Link } from "react-router-dom"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import StarIcon from "@mui/icons-material/Star"
 import StarBorderIcon from "@mui/icons-material/StarBorder"
 import StarHalfIcon from "@mui/icons-material/StarHalf"
-import { Box, Button, Link as MuiLink, Paper, Typography } from "@mui/material"
+import { Box, Link as MuiLink, Paper, Typography } from "@mui/material"
+import { ReactNode } from "react"
+import { Link } from "react-router-dom"
 
 import type { Product } from "../types"
+import { CartButton } from "./cartButton"
 
 type ProductProps = {
   product: Product
@@ -69,9 +69,7 @@ export function ProductCard({ product }: ProductProps) {
             <AttachMoneyIcon color="primary" />
           </Box>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-            <Button startIcon={<ShoppingCartIcon />} variant="contained">
-              В КОРЗИНУ
-            </Button>
+            <CartButton product={product} />
           </Box>
         </Box>
       </Box>

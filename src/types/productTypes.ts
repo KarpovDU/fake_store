@@ -22,11 +22,11 @@ export interface Product {
   stock: number
   tags: string[]
   brand: string
-  sku: string
   weight: number
   dimensions: ProductDimensions
   reviews: ProductReview[]
   images: string[]
+  thumbnail: string
 }
 
 export type ProductsResponse = {

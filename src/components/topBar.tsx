@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router-dom"
-import { Box, IconButton, Paper, Typography, useColorScheme } from "@mui/material"
-import LogoutIcon from "@mui/icons-material/Logout"
 import DarkModeIcon from "@mui/icons-material/DarkMode"
 import LightModeIcon from "@mui/icons-material/LightMode"
+import LogoutIcon from "@mui/icons-material/Logout"
+import { Box, IconButton, Paper, Typography, useColorScheme } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
 
-import { logout, RootState } from "../redux"
+import { logout, removeCart, RootState } from "../redux"
 
 export function TopBar() {
   const dispatch = useDispatch()
@@ -22,6 +22,7 @@ export function TopBar() {
   // Функция выхода из профиля.
   const handleLogout = () => {
     dispatch(logout())
+    dispatch(removeCart())
     navigate("/login", { replace: true })
   }
 
@@ -43,6 +44,7 @@ export function TopBar() {
       <Link
         to={{
           pathname: "/products",
+          search: "page=1",
         }}
         style={{ all: "unset", cursor: "pointer" }}
       >

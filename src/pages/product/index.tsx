@@ -1,11 +1,10 @@
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import StarIcon from "@mui/icons-material/Star"
-import { Box, Button, Paper, Typography } from "@mui/material"
+import { Box, Paper, Typography } from "@mui/material"
 import { useEffect, useMemo, useState } from "react"
 import { useParams } from "react-router-dom"
 
-import { Footer, InfoRow, LoadingSpinner, Review, TopBar } from "../../components"
+import { CartButton, Footer, InfoRow, LoadingSpinner, Review, TopBar } from "../../components"
 import { useGetAllProductsQuery, useGetSingleProductByIdQuery } from "../../services"
 
 export function ProductPage() {
@@ -108,9 +107,7 @@ export function ProductPage() {
                   </Typography>
                   <AttachMoneyIcon fontSize="large" color="primary" />
                 </Box>
-                <Button variant="contained" startIcon={<ShoppingCartIcon />}>
-                  В КОРЗИНУ
-                </Button>
+                <CartButton product={product} />
               </Box>
             </Box>
           </Box>

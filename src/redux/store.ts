@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"
 
 import { authApi, cartApi, productApi, userApi } from "../services"
 import userReducer from "./user"
+import cartReducer from "./cart"
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     [productApi.reducerPath]: productApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
     user: userReducer,
+    cart: cartReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()

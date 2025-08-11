@@ -1,7 +1,7 @@
-import { Button, Divider, IconButton, Paper, Typography } from "@mui/material"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
-import RemoveIcon from "@mui/icons-material/Remove"
 import AddIcon from "@mui/icons-material/Add"
+import RemoveIcon from "@mui/icons-material/Remove"
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+import { Button, Divider, IconButton, Paper, Typography } from "@mui/material"
 import { useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -20,8 +20,7 @@ export function CartButton({ product }: { product: Product }) {
   }, [cart]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Увеличение количества товара.
-  const increaseCount = (event: React.MouseEvent) => {
-    event.stopPropagation()
+  const increaseCount = () => {
     dispatch(
       addProduct({
         id: product.id,
@@ -33,8 +32,7 @@ export function CartButton({ product }: { product: Product }) {
   }
 
   // Уменьшение количества товара.
-  const decreaseCount = (event: React.MouseEvent) => {
-    event.stopPropagation()
+  const decreaseCount = () => {
     dispatch(decreaseProductByOne({ id: product.id }))
   }
 

@@ -27,14 +27,14 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
-  {
-    path: "/*",
-    element: (
-      <PrivateRoute>
-        <RedirectToProducts />
-      </PrivateRoute>
-    ),
-  },
+  // {
+  //   path: "/*",
+  //   element: (
+  //     <PrivateRoute>
+  //       <RedirectToProducts />
+  //     </PrivateRoute>
+  //   ),
+  // },
 ])
 
 createRoot(document.getElementById("root")).render(

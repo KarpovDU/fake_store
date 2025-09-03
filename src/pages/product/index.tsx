@@ -4,7 +4,7 @@ import { Box, Paper, Typography } from "@mui/material"
 import { useEffect, useMemo, useState } from "react"
 import { useParams } from "react-router-dom"
 
-import { CartButton, Footer, InfoRow, LoadingSpinner, Review, TopBar } from "../../components"
+import { CartButton, Footer, InfoRow, LoadingSpinner, RedirectToProducts, Review, TopBar } from "../../components"
 import { useGetAllProductsQuery, useGetSingleProductByIdQuery } from "../../services"
 
 export function ProductPage() {
@@ -45,7 +45,7 @@ export function ProductPage() {
 
   if (isLoading) return <LoadingSpinner />
 
-  if (isError || !product) return <div>Ошибка</div>
+  if (isError || !product) return <RedirectToProducts />
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
